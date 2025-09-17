@@ -4,7 +4,12 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "env": {
+    "DATABASE_URL": "postgres://postgres.jxfxcbdumwxlvpiytsmy:mess-portal-db-password@aws-0-ap-south-1.pooler.supabase.co:6543/postgres",
     "NEXTAUTH_URL": "https://sspmcoe-mess.vercel.app",
-    "NEXTAUTH_SECRET": "f784cfad4eaf2e919a8e7bd3c601cc2a7900603683d5ecc669f1443f1dbe9b32"
+    "NEXTAUTH_SECRET": "f784cfad4eaf2e919a8e7bd3c601cc2a7900603683d5ecc669f1443f1dbe9b32",
+    "EMAIL_SERVER": "",
+    "EMAIL_FROM": "noreply@college.edu",
+    "STRIPE_SECRET_KEY": "sk_test_...",
+    "STRIPE_WEBHOOK_SECRET": "whsec_..."
   }
 }
