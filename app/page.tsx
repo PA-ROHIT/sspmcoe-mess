@@ -36,7 +36,7 @@ export default function HomePage() {
           variants={item} 
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 text-gradient floating"
         >
-          Welcome to SSPM's COE Mess
+          Welcome to SSPM&apos;s COE Mess
         </motion.h1>
         
         <motion.p 
