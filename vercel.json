@@ -1,0 +1,6 @@
+{
+  "version": 2,
+  "env": {
+    "NEXTAUTH_URL": "https://sspmcoe-mess.vercel.app"
+  }
+}
