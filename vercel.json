@@ -1,6 +1,10 @@
 {
   "version": 2,
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs",
   "env": {
-    "NEXTAUTH_URL": "https://sspmcoe-mess.vercel.app"
+    "NEXTAUTH_URL": "https://sspmcoe-mess.vercel.app",
+    "NEXTAUTH_SECRET": "f784cfad4eaf2e919a8e7bd3c601cc2a7900603683d5ecc669f1443f1dbe9b32"
   }
 }
