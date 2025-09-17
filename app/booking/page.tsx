@@ -49,22 +49,39 @@ export default function BookingPage() {
   }, [])
 
   const onSubmit = async (values: FormValues) => {
+    if (!values.menuItemId || !values.date || !values.timeSlot || !values.portionSize) {
+      setError('Please fill in all required fields')
+      return
+    }
+
     setSubmitting(true)
     setError(null)
+    
     try {
       const chosen = menus.find(m => m.id === values.menuItemId)
       if (!chosen) throw new Error('Selected menu item not found')
-      values.messId = chosen.messId
+      
+      // Set default messId if not provided
+      const bookingData = {
+        ...values,
+        messId: chosen.messId || '1', // Default messId
+        date: new Date(values.date).toISOString(),
+      }
       
       const res = await fetch('/api/bookings', { 
         method: 'POST', 
         headers: { 'Content-Type': 'application/json' }, 
-        body: JSON.stringify(values) 
+        body: JSON.stringify(bookingData),
+        credentials: 'include'
       })
       
       const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Failed to create booking')
       
+      if (!res.ok) {
+        throw new Error(data.error?.message || data.message || 'Failed to create booking')
+      }
+      
+      // Redirect to success page with query parameters
       router.push(`/booking/success?meal=${encodeURIComponent(chosen.name)}&date=${values.date}&timeSlot=${values.timeSlot}&portionSize=${values.portionSize}`)
     } catch (err) {
       console.error('Booking error:', err)
@@ -210,7 +227,7 @@ export default function BookingPage() {
             
             <motion.button
               type="submit"
-              className="w-full btn-primary py-3 text-lg relative overflow-hidden disabled:pointer-events-none"
+              className="w-full py-3 text-lg relative overflow-hidden rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-medium disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading || submitting || hasEmptyFields}
@@ -220,6 +237,16 @@ export default function BookingPage() {
                   setError('Please fill in all required fields')
                 }
               }}
+            >
+              {submitting ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Booking...
+                </span>
+              ) : "Book Now"}
             >
               <span className="relative z-10">
                 {loading ? 'Loading...' : submitting ? 'Booking...' : 'Book Now'}
