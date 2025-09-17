@@ -1,20 +1,20 @@
-import { PrismaAdapter } from &apos;@next-auth/prisma-adapter&apos;
-import { prisma } from &apos;./prisma&apos;
-import EmailProvider from &apos;next-auth/providers/email&apos;
-import type { NextAuthOptions } from &apos;next-auth&apos;
+import { PrismaAdapter } from '@next-auth/prisma-adapter'
+import { prisma } from './prisma'
+import EmailProvider from 'next-auth/providers/email'
+import type { NextAuthOptions } from 'next-auth'
 
-export type Role = &apos;STUDENT&apos; | &apos;MANAGER&apos; | &apos;ADMIN&apos;
+export type Role = 'STUDENT' | 'MANAGER' | 'ADMIN'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
-      server: process.env.EMAIL_SERVER || &apos;&apos;,
-      from: process.env.EMAIL_FROM || &apos;&apos;
+      server: process.env.EMAIL_SERVER || '',
+      from: process.env.EMAIL_FROM || ''
     })
   ],
   session: { 
-    strategy: &apos;database&apos;,
+    strategy: 'database',
     maxAge: 30 * 24 * 60 * 60, // 30 days
     updateAge: 24 * 60 * 60 // 24 hours
   },
@@ -30,17 +30,17 @@ export const authOptions: NextAuthOptions = {
     },
     async signIn({ user }) {
       if (!user.email) {
-        throw new Error(&apos;Email is required for authentication&apos;)
+        throw new Error('Email is required for authentication')
       }
       return true
     }
   },
   pages: {
-    signIn: &apos;/signin&apos;,
-    error: &apos;/signin&apos;,
-    signOut: &apos;/signin&apos;
+    signIn: '/signin',
+    error: '/signin',
+    signOut: '/signin'
   },
-  debug: process.env.NODE_ENV === &apos;development&apos;
+  debug: process.env.NODE_ENV === 'development'
 }
 
 export function hasRole(userRole: string | undefined, allowed: Role[]): boolean {

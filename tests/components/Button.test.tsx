@@ -1,59 +1,59 @@
-import { describe, it, expect, vi } from &apos;vitest&apos;
-import { render, screen } from &apos;@testing-library/react&apos;
-import userEvent from &apos;@testing-library/user-event&apos;
-import { Button } from &apos;@/components/ui/Button&apos;
+import { describe, it, expect, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { Button } from '@/components/ui/Button'
 
-describe(&apos;Button&apos;, () => {
-  it(&apos;renders children correctly&apos;, () => {
+describe('Button', () => {
+  it('renders children correctly', () => {
     render(<Button>Click me</Button>)
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Click me&apos; })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Click me' })).toBeInTheDocument()
   })
 
-  it(&apos;applies variant classes correctly&apos;, () => {
+  it('applies variant classes correctly', () => {
     const { rerender } = render(<Button variant="destructive">Destructive</Button>)
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Destructive&apos; })).toHaveClass(&apos;bg-destructive&apos;)
+    expect(screen.getByRole('button', { name: 'Destructive' })).toHaveClass('bg-destructive')
 
     rerender(<Button variant="outline">Outline</Button>)
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Outline&apos; })).toHaveClass(&apos;border-input&apos;)
+    expect(screen.getByRole('button', { name: 'Outline' })).toHaveClass('border-input')
   })
 
-  it(&apos;applies size classes correctly&apos;, () => {
+  it('applies size classes correctly', () => {
     const { rerender } = render(<Button size="sm">Small</Button>)
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Small&apos; })).toHaveClass(&apos;h-9&apos;)
+    expect(screen.getByRole('button', { name: 'Small' })).toHaveClass('h-9')
 
     rerender(<Button size="lg">Large</Button>)
-    expect(screen.getByRole(&apos;button&apos;, { name: &apos;Large&apos; })).toHaveClass(&apos;h-11&apos;)
+    expect(screen.getByRole('button', { name: 'Large' })).toHaveClass('h-11')
   })
 
-  it(&apos;shows loading state correctly&apos;, () => {
+  it('shows loading state correctly', () => {
     render(<Button isLoading>Loading</Button>)
-    const button = screen.getByRole(&apos;button&apos;, { name: /loading/i })
+    const button = screen.getByRole('button', { name: /loading/i })
     expect(button).toBeInTheDocument()
     expect(button).toBeDisabled()
-    const spinner = document.querySelector(&apos;.animate-spin&apos;)
+    const spinner = document.querySelector('.animate-spin')
     expect(spinner).toBeInTheDocument()
-    expect(spinner?.parentElement).toHaveClass(&apos;flex items-center gap-2&apos;)
+    expect(spinner?.parentElement).toHaveClass('flex items-center gap-2')
   })
 
-  it(&apos;forwards ref correctly&apos;, () => {
+  it('forwards ref correctly', () => {
     const ref = { current: null }
     render(<Button ref={ref}>Ref Test</Button>)
     expect(ref.current).toBeInstanceOf(HTMLButtonElement)
   })
 
-  it(&apos;handles click events&apos;, async () => {
+  it('handles click events', async () => {
     const handleClick = vi.fn()
     render(<Button onClick={handleClick}>Click me</Button>)
     
-    await userEvent.click(screen.getByRole(&apos;button&apos;, { name: &apos;Click me&apos; }))
+    await userEvent.click(screen.getByRole('button', { name: 'Click me' }))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
-  it(&apos;disables click events when loading&apos;, async () => {
+  it('disables click events when loading', async () => {
     const handleClick = vi.fn()
     render(<Button isLoading onClick={handleClick}>Loading</Button>)
     
-    await userEvent.click(screen.getByRole(&apos;button&apos;, { name: /loading/i }))
+    await userEvent.click(screen.getByRole('button', { name: /loading/i }))
     expect(handleClick).not.toHaveBeenCalled()
   })
 })

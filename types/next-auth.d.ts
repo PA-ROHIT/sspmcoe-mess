@@ -1,7 +1,7 @@
-import &apos;next-auth&apos;
-import { Role } from &apos;@/lib/auth&apos;
+import 'next-auth'
+import { Role } from '@/lib/auth'
 
-declare module &apos;next-auth&apos; {
+declare module 'next-auth' {
   interface Session {
     user: {
       id: string

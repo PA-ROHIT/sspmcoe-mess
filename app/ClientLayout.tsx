@@ -1,7 +1,7 @@
-&apos;use client&apos;
+'use client'
 
-import AnimatedLayout from &apos;@/components/AnimatedLayout&apos;
-import { ReactNode } from &apos;react&apos;
+import AnimatedLayout from '@/components/AnimatedLayout'
+import { ReactNode } from 'react'
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   return <AnimatedLayout>{children}</AnimatedLayout>

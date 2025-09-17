@@ -1,19 +1,19 @@
-import { NextResponse } from &apos;next/server&apos;
-import { prisma } from &apos;@/lib/prisma&apos;
-import { getServerSession } from &apos;next-auth&apos;
-import { authOptions, hasRole } from &apos;@/lib/auth&apos;
-import { createInvoiceSchema } from &apos;@/lib/validation&apos;
-import { recordAudit } from &apos;@/lib/audit&apos;
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions, hasRole } from '@/lib/auth'
+import { createInvoiceSchema } from '@/lib/validation'
+import { recordAudit } from '@/lib/audit'
 
 export async function GET() {
-  const invoices = await prisma.invoice.findMany({ orderBy: { periodStart: &apos;desc&apos; } })
+  const invoices = await prisma.invoice.findMany({ orderBy: { periodStart: 'desc' } })
   return NextResponse.json(invoices)
 }
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
-  if (!session?.user?.role || !hasRole(session.user.role, [&apos;MANAGER&apos;, &apos;ADMIN&apos;])) {
-    return NextResponse.json({ error: &apos;Forbidden&apos; }, { status: 403 })
+  if (!session?.user?.role || !hasRole(session.user.role, ['MANAGER', 'ADMIN'])) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
   const json = await req.json()
   const parsed = createInvoiceSchema.safeParse(json)
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
       paidAt: parsed.data.paidAt ? new Date(parsed.data.paidAt) : null
     }
   })
-  await recordAudit(session.user.id ?? null, &apos;CREATE&apos;, &apos;Invoice&apos;, { after: created })
+  await recordAudit(session.user.id ?? null, 'CREATE', 'Invoice', { after: created })
   return NextResponse.json(created, { status: 201 })
 }
 

@@ -1,9 +1,9 @@
-import { NextResponse } from &apos;next/server&apos;
-import { prisma } from &apos;@/lib/prisma&apos;
-import { getServerSession } from &apos;next-auth&apos;
-import { authOptions, hasRole } from &apos;@/lib/auth&apos;
-import { createMenuItemSchema } from &apos;@/lib/validation&apos;
-import { recordAudit } from &apos;@/lib/audit&apos;
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
+import { getServerSession } from 'next-auth'
+import { authOptions, hasRole } from '@/lib/auth'
+import { createMenuItemSchema } from '@/lib/validation'
+import { recordAudit } from '@/lib/audit'
 
 export async function GET() {
   try {
@@ -25,7 +25,7 @@ export async function GET() {
           { effectiveFrom: { lte: sevenDaysFromNow } }
         ]
       },
-      orderBy: { effectiveFrom: &apos;asc&apos; },
+      orderBy: { effectiveFrom: 'asc' },
       select: {
         id: true,
         name: true,
@@ -41,14 +41,14 @@ export async function GET() {
     });
 
     if (!menuItems || menuItems.length === 0) {
-      return NextResponse.json({ message: &apos;No active menu items found&apos; }, { status: 404 });
+      return NextResponse.json({ message: 'No active menu items found' }, { status: 404 });
     }
 
     return NextResponse.json(menuItems);
   } catch (error) {
-    console.error(&apos;Error fetching menu items:&apos;, error);
+    console.error('Error fetching menu items:', error);
     return NextResponse.json(
-      { error: &apos;Failed to fetch menu items&apos; },
+      { error: 'Failed to fetch menu items' },
       { status: 500 }
     );
   }
@@ -56,14 +56,14 @@ export async function GET() {
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
-  if (!session?.user?.role || !hasRole(session.user.role, [&apos;MANAGER&apos;, &apos;ADMIN&apos;])) {
-    return NextResponse.json({ error: &apos;Forbidden&apos; }, { status: 403 })
+  if (!session?.user?.role || !hasRole(session.user.role, ['MANAGER', 'ADMIN'])) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
   const json = await req.json()
   const parsed = createMenuItemSchema.safeParse(json)
   if (!parsed.success) return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 })
   const created = await prisma.menuItem.create({ data: parsed.data })
-  await recordAudit(session.user.id ?? null, &apos;CREATE&apos;, &apos;MenuItem&apos;, { after: created })
+  await recordAudit(session.user.id ?? null, 'CREATE', 'MenuItem', { after: created })
   return NextResponse.json(created, { status: 201 })
 }
 

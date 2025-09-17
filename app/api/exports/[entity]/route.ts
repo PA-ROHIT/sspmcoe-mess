@@ -1,24 +1,24 @@
-import { NextResponse } from &apos;next/server&apos;
-import { prisma } from &apos;@/lib/prisma&apos;
+import { NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 function toCSV(rows: any[]): string {
-  if (!rows.length) return &apos;&apos;
+  if (!rows.length) return ''
   const headers = Object.keys(rows[0])
-  const lines = [headers.join(&apos;,&apos;)]
-  for (const r of rows) lines.push(headers.map(h => JSON.stringify(r[h] ?? &apos;&apos;)).join(&apos;,&apos;))
-  return lines.join(&apos;\n&apos;)
+  const lines = [headers.join(',')]
+  for (const r of rows) lines.push(headers.map(h => JSON.stringify(r[h] ?? '')).join(','))
+  return lines.join('\n')
 }
 
 export async function GET(_: Request, { params }: { params: { entity: string } }) {
   const e = params.entity
   let rows: any[] = []
-  if (e === &apos;bookings&apos;) rows = await prisma.booking.findMany()
-  else if (e === &apos;attendance&apos;) rows = await prisma.attendance.findMany()
-  else if (e === &apos;waste&apos;) rows = await prisma.wasteLog.findMany()
-  else if (e === &apos;inventory&apos;) rows = await prisma.inventoryItem.findMany()
-  else return NextResponse.json({ error: &apos;Unknown entity&apos; }, { status: 400 })
+  if (e === 'bookings') rows = await prisma.booking.findMany()
+  else if (e === 'attendance') rows = await prisma.attendance.findMany()
+  else if (e === 'waste') rows = await prisma.wasteLog.findMany()
+  else if (e === 'inventory') rows = await prisma.inventoryItem.findMany()
+  else return NextResponse.json({ error: 'Unknown entity' }, { status: 400 })
   const csv = toCSV(rows)
-  return new NextResponse(csv, { headers: { &apos;content-type&apos;: &apos;text/csv; charset=utf-8&apos;, &apos;content-disposition&apos;: `attachment; filename=${e}.csv` } })
+  return new NextResponse(csv, { headers: { 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename=${e}.csv` } })
 }
 
 

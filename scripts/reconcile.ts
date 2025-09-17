@@ -1,4 +1,4 @@
-import { prisma } from &apos;@/lib/prisma&apos;
+import { prisma } from '@/lib/prisma'
 
 // Simple reconciliation: mark no-shows and compute diff
 async function main() {

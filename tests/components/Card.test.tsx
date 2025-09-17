@@ -1,77 +1,77 @@
-import { describe, it, expect } from &apos;vitest&apos;
-import { render, screen } from &apos;@testing-library/react&apos;
-import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from &apos;@/components/ui/Card&apos;
+import { describe, it, expect } from 'vitest'
+import { render, screen } from '@testing-library/react'
+import { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from '@/components/ui/Card'
 
-describe(&apos;Card Components&apos;, () => {
-  describe(&apos;Card&apos;, () => {
-    it(&apos;renders with default classes&apos;, () => {
+describe('Card Components', () => {
+  describe('Card', () => {
+    it('renders with default classes', () => {
       render(<Card>Content</Card>)
-      const card = screen.getByText(&apos;Content&apos;)
-      expect(card).toHaveClass(&apos;rounded-lg border bg-card text-card-foreground shadow-sm&apos;)
+      const card = screen.getByText('Content')
+      expect(card).toHaveClass('rounded-lg border bg-card text-card-foreground shadow-sm')
     })
 
-    it(&apos;merges custom className&apos;, () => {
+    it('merges custom className', () => {
       render(<Card className="custom-class">Content</Card>)
-      const card = screen.getByText(&apos;Content&apos;)
-      expect(card).toHaveClass(&apos;custom-class&apos;)
-      expect(card).toHaveClass(&apos;rounded-lg&apos;)
+      const card = screen.getByText('Content')
+      expect(card).toHaveClass('custom-class')
+      expect(card).toHaveClass('rounded-lg')
     })
   })
 
-  describe(&apos;CardHeader&apos;, () => {
-    it(&apos;renders title and subtitle&apos;, () => {
+  describe('CardHeader', () => {
+    it('renders title and subtitle', () => {
       render(<CardHeader title="Test Title" subtitle="Test Subtitle" />)
-      expect(screen.getByText(&apos;Test Title&apos;)).toBeInTheDocument()
-      expect(screen.getByText(&apos;Test Subtitle&apos;)).toBeInTheDocument()
+      expect(screen.getByText('Test Title')).toBeInTheDocument()
+      expect(screen.getByText('Test Subtitle')).toBeInTheDocument()
     })
 
-    it(&apos;renders only title when no subtitle provided&apos;, () => {
+    it('renders only title when no subtitle provided', () => {
       render(<CardHeader title="Test Title" />)
-      expect(screen.getByText(&apos;Test Title&apos;)).toBeInTheDocument()
-      expect(screen.queryByText(&apos;Test Subtitle&apos;)).not.toBeInTheDocument()
+      expect(screen.getByText('Test Title')).toBeInTheDocument()
+      expect(screen.queryByText('Test Subtitle')).not.toBeInTheDocument()
     })
 
-    it(&apos;applies correct classes&apos;, () => {
+    it('applies correct classes', () => {
       render(<CardHeader title="Test Title" className="custom-class" />)
-      const header = screen.getByText(&apos;Test Title&apos;).parentElement
-      expect(header).toHaveClass(&apos;flex flex-col space-y-1.5 p-6 custom-class&apos;)
+      const header = screen.getByText('Test Title').parentElement
+      expect(header).toHaveClass('flex flex-col space-y-1.5 p-6 custom-class')
     })
   })
 
-  describe(&apos;CardTitle&apos;, () => {
-    it(&apos;renders content with correct classes&apos;, () => {
+  describe('CardTitle', () => {
+    it('renders content with correct classes', () => {
       render(<CardTitle>Test Title</CardTitle>)
-      const title = screen.getByText(&apos;Test Title&apos;)
-      expect(title).toHaveClass(&apos;text-2xl font-semibold leading-none tracking-tight&apos;)
+      const title = screen.getByText('Test Title')
+      expect(title).toHaveClass('text-2xl font-semibold leading-none tracking-tight')
     })
   })
 
-  describe(&apos;CardDescription&apos;, () => {
-    it(&apos;renders content with correct classes&apos;, () => {
+  describe('CardDescription', () => {
+    it('renders content with correct classes', () => {
       render(<CardDescription>Test Description</CardDescription>)
-      const description = screen.getByText(&apos;Test Description&apos;)
-      expect(description).toHaveClass(&apos;text-sm text-muted-foreground&apos;)
+      const description = screen.getByText('Test Description')
+      expect(description).toHaveClass('text-sm text-muted-foreground')
     })
   })
 
-  describe(&apos;CardContent&apos;, () => {
-    it(&apos;renders content with correct classes&apos;, () => {
+  describe('CardContent', () => {
+    it('renders content with correct classes', () => {
       render(<CardContent data-testid="content">Test Content</CardContent>)
-      const content = screen.getByTestId(&apos;content&apos;)
-      expect(content).toHaveClass(&apos;p-6 pt-0&apos;)
+      const content = screen.getByTestId('content')
+      expect(content).toHaveClass('p-6 pt-0')
     })
   })
 
-  describe(&apos;CardFooter&apos;, () => {
-    it(&apos;renders content with correct classes&apos;, () => {
+  describe('CardFooter', () => {
+    it('renders content with correct classes', () => {
       render(<CardFooter data-testid="footer">Test Footer</CardFooter>)
-      const footer = screen.getByTestId(&apos;footer&apos;)
-      expect(footer).toHaveClass(&apos;flex items-center p-6 pt-0&apos;)
+      const footer = screen.getByTestId('footer')
+      expect(footer).toHaveClass('flex items-center p-6 pt-0')
     })
   })
 
-  describe(&apos;Component Integration&apos;, () => {
-    it(&apos;renders a complete card structure&apos;, () => {
+  describe('Component Integration', () => {
+    it('renders a complete card structure', () => {
       render(
         <Card>
           <CardHeader title="Card Title" subtitle="Card Subtitle" />
@@ -80,10 +80,10 @@ describe(&apos;Card Components&apos;, () => {
         </Card>
       )
 
-      expect(screen.getByText(&apos;Card Title&apos;)).toBeInTheDocument()
-      expect(screen.getByText(&apos;Card Subtitle&apos;)).toBeInTheDocument()
-      expect(screen.getByText(&apos;Card Content&apos;)).toBeInTheDocument()
-      expect(screen.getByText(&apos;Card Footer&apos;)).toBeInTheDocument()
+      expect(screen.getByText('Card Title')).toBeInTheDocument()
+      expect(screen.getByText('Card Subtitle')).toBeInTheDocument()
+      expect(screen.getByText('Card Content')).toBeInTheDocument()
+      expect(screen.getByText('Card Footer')).toBeInTheDocument()
     })
   })
 })

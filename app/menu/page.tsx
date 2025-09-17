@@ -1,10 +1,10 @@
-&apos;use client&apos;
+'use client'
 
-import { useState, useEffect, memo, useCallback, useMemo } from &apos;react&apos;
-import { motion } from &apos;framer-motion&apos;
-import { Card, CardHeader } from &apos;@/components/ui/Card&apos;
-import Image from &apos;next/image&apos;
-import { useDebounce } from &apos;@/hooks/useDebounce&apos;
+import { useState, useEffect, memo, useCallback, useMemo } from 'react'
+import { motion } from 'framer-motion'
+import { Card, CardHeader } from '@/components/ui/Card'
+import Image from 'next/image'
+import { useDebounce } from '@/hooks/useDebounce'
 
 type MenuItem = {
   id: string
@@ -37,12 +37,12 @@ const MenuItemCard = memo(({ menuItem }: { menuItem: MenuItem }) => {
   const [imageError, setImageError] = useState(false)
   // Generate placeholder image based on menu item name
   const getPlaceholderImage = useCallback(() => {
-    const colors = [&apos;4f46e5&apos;, &apos;0891b2&apos;, &apos;059669&apos;, &apos;d97706&apos;, &apos;dc2626&apos;, &apos;7c3aed&apos;];
+    const colors = ['4f46e5', '0891b2', '059669', 'd97706', 'dc2626', '7c3aed'];
     const colorIndex = menuItem.name.length % colors.length;
     const bgColor = colors[colorIndex];
-    const initials = menuItem.name.split(&apos; &apos;)
+    const initials = menuItem.name.split(' ')
       .map(word => word[0])
-      .join(&apos;&apos;)
+      .join('')
       .substring(0, 2)
       .toUpperCase();
     
@@ -65,7 +65,7 @@ const MenuItemCard = memo(({ menuItem }: { menuItem: MenuItem }) => {
           priority={false}
           onError={() => setImageError(true)}
         />
-        {typeof menuItem.price !== &apos;undefined&apos; && (
+        {typeof menuItem.price !== 'undefined' && (
           <div className="absolute top-4 right-4 glass-effect px-4 py-2 rounded-full text-sm font-medium">
             ₹{menuItem.price}
           </div>
@@ -96,14 +96,14 @@ const MenuItemCard = memo(({ menuItem }: { menuItem: MenuItem }) => {
         <div className="flex justify-between items-center mt-6">
           {menuItem.dietTags && (
             <div className="flex flex-wrap gap-2">
-              {menuItem.dietTags.split(&apos;,&apos;).map((tag, i) => (
+              {menuItem.dietTags.split(',').map((tag, i) => (
                 <span 
                   key={i} 
-                  className={`px-3 py-1 text-xs font-medium rounded-full glass-effect ${tag.trim() === &apos;vegetarian&apos; 
-                    ? &apos;text-green-500&apos; 
-                    : tag.trim() === &apos;vegan&apos; 
-                      ? &apos;text-emerald-500&apos; 
-                      : &apos;text-amber-500&apos;}`}
+                  className={`px-3 py-1 text-xs font-medium rounded-full glass-effect ${tag.trim() === 'vegetarian' 
+                    ? 'text-green-500' 
+                    : tag.trim() === 'vegan' 
+                      ? 'text-emerald-500' 
+                      : 'text-amber-500'}`}
                 >
                   {tag.trim()}
                 </span>
@@ -120,20 +120,20 @@ const MenuItemCard = memo(({ menuItem }: { menuItem: MenuItem }) => {
   );
 });
 
-MenuItemCard.displayName = &apos;MenuItemCard&apos;;
+MenuItemCard.displayName = 'MenuItemCard';
 
 export default function MenuPage() {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [category, setCategory] = useState(&apos;all&apos;)
-  const [searchQuery, setSearchQuery] = useState(&apos;&apos;)
+  const [category, setCategory] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('')
   const debouncedSearchQuery = useDebounce(searchQuery, 300)
 
   useEffect(() => {
     const fetchMenuItems = async () => {
       try {
-        const response = await fetch(&apos;/api/menus&apos;, {
+        const response = await fetch('/api/menus', {
           signal: AbortSignal.timeout(5000) // 5 second timeout
         })
         if (!response.ok) {
@@ -145,93 +145,93 @@ export default function MenuPage() {
         if (data.length === 0) {
           const sampleItems = [
             {
-              id: &apos;1&apos;,
-              name: &apos;Veg Thali&apos;,
-              description: &apos;A complete vegetarian meal with rice, dal, sabzi, roti, and dessert&apos;,
-              ingredients: &apos;Rice, Dal, Mixed Vegetables, Roti, Raita, Sweet&apos;,
-              portionSizes: &apos;Regular (1 person), Large (2 persons)&apos;,
-              dietTags: &apos;vegetarian&apos;,
-              category: &apos;main&apos;,
+              id: '1',
+              name: 'Veg Thali',
+              description: 'A complete vegetarian meal with rice, dal, sabzi, roti, and dessert',
+              ingredients: 'Rice, Dal, Mixed Vegetables, Roti, Raita, Sweet',
+              portionSizes: 'Regular (1 person), Large (2 persons)',
+              dietTags: 'vegetarian',
+              category: 'main',
               price: 120
             },
             {
-              id: &apos;2&apos;,
-              name: &apos;Paneer Butter Masala&apos;,
-              description: &apos;Cottage cheese cubes in rich tomato and butter gravy&apos;,
-              ingredients: &apos;Paneer, Tomatoes, Butter, Cream, Spices&apos;,
-              portionSizes: &apos;Regular (250g), Large (400g)&apos;,
-              dietTags: &apos;vegetarian&apos;,
-              category: &apos;main&apos;,
+              id: '2',
+              name: 'Paneer Butter Masala',
+              description: 'Cottage cheese cubes in rich tomato and butter gravy',
+              ingredients: 'Paneer, Tomatoes, Butter, Cream, Spices',
+              portionSizes: 'Regular (250g), Large (400g)',
+              dietTags: 'vegetarian',
+              category: 'main',
               price: 150
             },
             {
-              id: &apos;3&apos;,
-              name: &apos;Chicken Biryani&apos;,
-              description: &apos;Fragrant rice cooked with chicken and aromatic spices&apos;,
-              ingredients: &apos;Basmati Rice, Chicken, Onions, Spices, Saffron&apos;,
-              portionSizes: &apos;Regular (1 person), Family (3 persons)&apos;,
-              dietTags: &apos;non-vegetarian&apos;,
-              category: &apos;main&apos;,
+              id: '3',
+              name: 'Chicken Biryani',
+              description: 'Fragrant rice cooked with chicken and aromatic spices',
+              ingredients: 'Basmati Rice, Chicken, Onions, Spices, Saffron',
+              portionSizes: 'Regular (1 person), Family (3 persons)',
+              dietTags: 'non-vegetarian',
+              category: 'main',
               price: 180
             },
             {
-              id: &apos;4&apos;,
-              name: &apos;Masala Dosa&apos;,
-              description: &apos;Crispy rice crepe filled with spiced potato filling&apos;,
-              ingredients: &apos;Rice Batter, Potatoes, Onions, Spices&apos;,
-              portionSizes: &apos;Regular (1 piece), Jumbo (1 large piece)&apos;,
-              dietTags: &apos;vegetarian, south-indian&apos;,
-              category: &apos;breakfast&apos;,
+              id: '4',
+              name: 'Masala Dosa',
+              description: 'Crispy rice crepe filled with spiced potato filling',
+              ingredients: 'Rice Batter, Potatoes, Onions, Spices',
+              portionSizes: 'Regular (1 piece), Jumbo (1 large piece)',
+              dietTags: 'vegetarian, south-indian',
+              category: 'breakfast',
               price: 90
             },
             {
-              id: &apos;5&apos;,
-              name: &apos;Vegan Buddha Bowl&apos;,
-              description: &apos;Nutritious bowl with grains, legumes, and fresh vegetables&apos;,
-              ingredients: &apos;Quinoa, Chickpeas, Avocado, Kale, Tahini Dressing&apos;,
-              portionSizes: &apos;Regular (400g)&apos;,
-              dietTags: &apos;vegan, healthy&apos;,
-              category: &apos;main&apos;,
+              id: '5',
+              name: 'Vegan Buddha Bowl',
+              description: 'Nutritious bowl with grains, legumes, and fresh vegetables',
+              ingredients: 'Quinoa, Chickpeas, Avocado, Kale, Tahini Dressing',
+              portionSizes: 'Regular (400g)',
+              dietTags: 'vegan, healthy',
+              category: 'main',
               price: 200
             },
             {
-              id: &apos;6&apos;,
-              name: &apos;Mango Lassi&apos;,
-              description: &apos;Sweet yogurt drink with mango pulp&apos;,
-              ingredients: &apos;Yogurt, Mango Pulp, Sugar, Cardamom&apos;,
-              portionSizes: &apos;Regular (300ml), Large (500ml)&apos;,
-              dietTags: &apos;vegetarian, beverage&apos;,
-              category: &apos;beverage&apos;,
+              id: '6',
+              name: 'Mango Lassi',
+              description: 'Sweet yogurt drink with mango pulp',
+              ingredients: 'Yogurt, Mango Pulp, Sugar, Cardamom',
+              portionSizes: 'Regular (300ml), Large (500ml)',
+              dietTags: 'vegetarian, beverage',
+              category: 'beverage',
               price: 60
             },
             {
-              id: &apos;7&apos;,
-              name: &apos;Gulab Jamun&apos;,
-              description: &apos;Sweet milk solids balls soaked in sugar syrup&apos;,
-              ingredients: &apos;Milk Powder, Flour, Sugar, Cardamom, Rose Water&apos;,
-              portionSizes: &apos;2 pieces, 4 pieces&apos;,
-              dietTags: &apos;vegetarian, dessert&apos;,
-              category: &apos;dessert&apos;,
+              id: '7',
+              name: 'Gulab Jamun',
+              description: 'Sweet milk solids balls soaked in sugar syrup',
+              ingredients: 'Milk Powder, Flour, Sugar, Cardamom, Rose Water',
+              portionSizes: '2 pieces, 4 pieces',
+              dietTags: 'vegetarian, dessert',
+              category: 'dessert',
               price: 50
             },
             {
-              id: &apos;8&apos;,
-              name: &apos;Aloo Paratha&apos;,
-              description: &apos;Whole wheat flatbread stuffed with spiced potatoes&apos;,
-              ingredients: &apos;Whole Wheat Flour, Potatoes, Spices, Ghee&apos;,
-              portionSizes: &apos;2 pieces, 3 pieces&apos;,
-              dietTags: &apos;vegetarian, breakfast&apos;,
-              category: &apos;breakfast&apos;,
+              id: '8',
+              name: 'Aloo Paratha',
+              description: 'Whole wheat flatbread stuffed with spiced potatoes',
+              ingredients: 'Whole Wheat Flour, Potatoes, Spices, Ghee',
+              portionSizes: '2 pieces, 3 pieces',
+              dietTags: 'vegetarian, breakfast',
+              category: 'breakfast',
               price: 70
             },
             {
-              id: &apos;9&apos;,
-              name: &apos;Chole Bhature&apos;,
-              description: &apos;Spiced chickpea curry with deep-fried bread&apos;,
-              ingredients: &apos;Chickpeas, Flour, Spices, Oil&apos;,
-              portionSizes: &apos;2 bhature with chole&apos;,
-              dietTags: &apos;vegetarian&apos;,
-              category: &apos;main&apos;,
+              id: '9',
+              name: 'Chole Bhature',
+              description: 'Spiced chickpea curry with deep-fried bread',
+              ingredients: 'Chickpeas, Flour, Spices, Oil',
+              portionSizes: '2 bhature with chole',
+              dietTags: 'vegetarian',
+              category: 'main',
               price: 110
             }
           ];
@@ -240,20 +240,20 @@ export default function MenuPage() {
           setMenuItems(data);
         }
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : &apos;Failed to load menu items&apos;
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load menu items'
         setError(`${errorMessage}. Please try again later.`)
-        console.error(&apos;Menu fetch error:&apos;, err)
+        console.error('Menu fetch error:', err)
         
         // Fallback to sample items on error
         const sampleItems = [
           {
-            id: &apos;1&apos;,
-            name: &apos;Veg Thali&apos;,
-            description: &apos;A complete vegetarian meal with rice, dal, sabzi, roti, and dessert&apos;,
-            ingredients: &apos;Rice, Dal, Mixed Vegetables, Roti, Raita, Sweet&apos;,
-            portionSizes: &apos;Regular (1 person), Large (2 persons)&apos;,
-            dietTags: &apos;vegetarian&apos;,
-            category: &apos;main&apos;,
+            id: '1',
+            name: 'Veg Thali',
+            description: 'A complete vegetarian meal with rice, dal, sabzi, roti, and dessert',
+            ingredients: 'Rice, Dal, Mixed Vegetables, Roti, Raita, Sweet',
+            portionSizes: 'Regular (1 person), Large (2 persons)',
+            dietTags: 'vegetarian',
+            category: 'main',
             price: 120
           },
           // More sample items...
@@ -268,7 +268,7 @@ export default function MenuPage() {
   }, [])
 
   // Get unique categories from menu items
-   const categories = [&apos;all&apos;, ...new Set(menuItems.map(item => item.category).filter(Boolean))]
+   const categories = ['all', ...new Set(menuItems.map(item => item.category).filter(Boolean))]
 
    // Filter menu items based on selected category and search query
    const displayItems = useMemo(() => {
@@ -276,7 +276,7 @@ export default function MenuPage() {
     
     const query = debouncedSearchQuery.toLowerCase().trim();
     const filteredItems = menuItems.filter(item => {
-      const matchesCategory = category === &apos;all&apos; || item.category === category;
+      const matchesCategory = category === 'all' || item.category === category;
       
       if (!query) return matchesCategory;
       
@@ -335,7 +335,7 @@ export default function MenuPage() {
           />
           {searchQuery && (
             <button
-              onClick={() => setSearchQuery(&apos;&apos;)}
+              onClick={() => setSearchQuery('')}
               className="absolute right-6 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             >
               ×
@@ -350,8 +350,8 @@ export default function MenuPage() {
               key={cat}
               onClick={() => setCategory(cat)}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${category === cat 
-                ? &apos;bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-105&apos; 
-                : &apos;hover:bg-white/20 dark:hover:bg-black/20&apos;}`}
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg scale-105' 
+                : 'hover:bg-white/20 dark:hover:bg-black/20'}`}
             >
               {cat.charAt(0).toUpperCase() + cat.slice(1)}
             </button>
@@ -378,7 +378,7 @@ export default function MenuPage() {
         <div className="glass-card p-12 text-center">
           <p className="text-2xl font-medium mb-3">No menu items found</p>
           <p className="text-muted-foreground text-lg">
-            {searchQuery ? `No results for "${searchQuery}"` : &apos;Try selecting a different category&apos;}
+            {searchQuery ? `No results for "${searchQuery}"` : 'Try selecting a different category'}
           </p>
         </div>
       ) : (

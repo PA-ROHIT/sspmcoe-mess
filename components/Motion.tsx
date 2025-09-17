@@ -1,8 +1,8 @@
 "use client"
 
 import * as React from "react"
-import { motion, useReducedMotion, AnimatePresence } from &apos;framer-motion&apos;
-import { cn } from &apos;@/lib/utils&apos;
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 type PropsWithChildren = React.PropsWithChildren<{}>
 
@@ -48,7 +48,7 @@ interface MotionProps extends PropsWithChildren {
 export const MotionButton = React.forwardRef<HTMLButtonElement, MotionProps & React.ButtonHTMLAttributes<HTMLButtonElement>>(({ 
   children, 
   className,
-  animation = &apos;scale&apos;,
+  animation = 'scale',
   duration = 0.2,
   ...props
 }, ref) => {
@@ -76,7 +76,7 @@ MotionButton.displayName = "MotionButton"
 export const MotionCard = React.forwardRef<HTMLDivElement, MotionProps>(({ 
   children, 
   className,
-  animation = &apos;fadeInUp&apos;,
+  animation = 'fadeInUp',
   duration = 0.4 
 }, ref) => {
   const shouldReduceMotion = useReducedMotion()
@@ -105,7 +105,7 @@ MotionCard.displayName = "MotionCard"
 export const PageTransition = React.forwardRef<HTMLDivElement, MotionProps>(({ 
   children,
   className,
-  animation = &apos;fadeIn&apos;,
+  animation = 'fadeIn',
   duration = 0.5
 }, ref) => {
   const shouldReduceMotion = useReducedMotion()

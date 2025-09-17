@@ -1,27 +1,27 @@
 /// <reference types="vitest" />
 /// <reference types="vite/client" />
 
-import { defineConfig } from &apos;vite&apos;
-import react from &apos;@vitejs/plugin-react&apos;
-import path from &apos;path&apos;
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: &apos;jsdom&apos;,
+    environment: 'jsdom',
     globals: true,
-    setupFiles: [&apos;./tests/setup.ts&apos;],
+    setupFiles: ['./tests/setup.ts'],
     coverage: {
-      reporter: [&apos;text&apos;, &apos;json&apos;, &apos;html&apos;],
+      reporter: ['text', 'json', 'html'],
       exclude: [
-        &apos;node_modules/&apos;,
-        &apos;tests/setup.ts&apos;,
+        'node_modules/',
+        'tests/setup.ts',
       ],
     },
   },
   resolve: {
     alias: {
-      &apos;@&apos;: path.resolve(__dirname, &apos;./&apos;)
+      '@': path.resolve(__dirname, './')
     },
   },
 })

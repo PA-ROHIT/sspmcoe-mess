@@ -1,7 +1,7 @@
-import { describe, it, expect } from &apos;vitest&apos;
+import { describe, it, expect } from 'vitest'
 
-describe(&apos;booking api placeholder&apos;, () => {
-  it(&apos;schema exists&apos;, () => {
+describe('booking api placeholder', () => {
+  it('schema exists', () => {
     expect(true).toBe(true)
   })
 })
