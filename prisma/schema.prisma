@@ -1,0 +1,175 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  collegeEmail String   @unique
+  role         String
+  phone        String?
+  preferences  String?
+  createdAt    DateTime @default(now())
+  bookings     Booking[]
+  invoices     Invoice[]
+  payments     Payment[]
+  auditLogs    AuditLog[]
+  attendances  Attendance[]
+  // NextAuth fields
+  email        String?  @unique
+  emailVerified DateTime?
+  accounts     Account[]
+  sessions     Session[]
+}
+
+model Mess {
+  id         String   @id @default(cuid())
+  name       String
+  location   String
+  managerId  String?
+  openHours  String?
+  menuItems  MenuItem[]
+  inventory  InventoryItem[]
+  wasteLogs  WasteLog[]
+}
+
+model MealPlan {
+  id            String   @id @default(cuid())
+  name          String
+  price         Int
+  billingCycle  String
+  includedMeals String?
+}
+
+model MenuItem {
+  id            String   @id @default(cuid())
+  messId        String
+  mess          Mess     @relation(fields: [messId], references: [id])
+  name          String
+  description   String?
+  ingredients   String?
+  portionSizes  String?
+  dietTags      String?
+  image         String?
+  category      String?
+  price         Int?
+  effectiveFrom DateTime @default(now())
+  effectiveTo   DateTime?
+}
+
+model Booking {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  messId      String
+  menuItemId  String
+  date        DateTime
+  timeSlot    String
+  portionSize String
+  status      String
+  createdAt   DateTime @default(now())
+  attendance  Attendance?
+}
+
+model Attendance {
+  id          String   @id @default(cuid())
+  bookingId   String?  @unique
+  booking     Booking? @relation(fields: [bookingId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  checkInTime DateTime @default(now())
+  method      String
+  status      String
+}
+
+model InventoryItem {
+  id               String   @id @default(cuid())
+  messId           String
+  mess             Mess     @relation(fields: [messId], references: [id])
+  name             String
+  unit             String
+  quantityOnHand   Float    @default(0)
+  reorderThreshold Float    @default(0)
+}
+
+model WasteLog {
+  id         String   @id @default(cuid())
+  messId     String
+  mess       Mess     @relation(fields: [messId], references: [id])
+  menuItemId String
+  date       DateTime
+  wastedQty  Float
+  reason     String?
+  photoUrl   String?
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  periodStart DateTime
+  periodEnd   DateTime
+  lineItems   String?
+  total       Int
+  status      String
+  paidAt      DateTime?
+  payments    Payment[]
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  invoiceId String
+  invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  amount    Int
+  method    String
+  status    String
+  txnRef    String?
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String
+  entity    String
+  diff      String?
+  timestamp DateTime @default(now())
+}
+
+// NextAuth models
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?
+  access_token       String?
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?
+  session_state      String?
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+
