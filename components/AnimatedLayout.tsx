@@ -1,20 +1,20 @@
-'use client'
+&apos;use client&apos;
 
-import { motion } from 'framer-motion'
-import { PageTransition } from '@/components/Motion'
-import { ReactNode } from 'react'
-import Link from 'next/link'
+import { motion } from &apos;framer-motion&apos;
+import { PageTransition } from &apos;@/components/Motion&apos;
+import { ReactNode } from &apos;react&apos;
+import Link from &apos;next/link&apos;
 
 interface AnimatedLayoutProps {
   children: ReactNode
 }
 
 const navItems = [
-  { name: 'Home', href: '/' },
-  { name: 'Menu', href: '/menu' },
-  { name: 'Bookings', href: '/booking' },
-  { name: 'Check-in', href: '/checkin' },
-  { name: 'Billing', href: '/billing' },
+  { name: &apos;Home&apos;, href: &apos;/&apos; },
+  { name: &apos;Menu&apos;, href: &apos;/menu&apos; },
+  { name: &apos;Bookings&apos;, href: &apos;/booking&apos; },
+  { name: &apos;Check-in&apos;, href: &apos;/checkin&apos; },
+  { name: &apos;Billing&apos;, href: &apos;/billing&apos; },
 ]
 
 export default function AnimatedLayout({ children }: AnimatedLayoutProps) {
@@ -48,7 +48,7 @@ export default function AnimatedLayout({ children }: AnimatedLayoutProps) {
                   transition={{ duration: 0.3, delay: 0.1 + i * 0.1 }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{ display: 'inline-block' }}
+                  style={{ display: &apos;inline-block&apos; }}
                 >
                   {item.name}
                 </motion.span>

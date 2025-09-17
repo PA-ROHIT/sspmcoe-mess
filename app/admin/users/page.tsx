@@ -1,9 +1,9 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from &apos;react&apos;
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState<any[]>([])
-  useEffect(()=>{ fetch('/api/admin/users').then(r=>r.json()).then(setUsers) },[])
+  useEffect(()=>{ fetch(&apos;/api/admin/users&apos;).then(r=>r.json()).then(setUsers) },[])
   return (
     <section className="space-y-4">
       <h2 className="text-xl font-semibold">Users & Roles</h2>
@@ -19,7 +19,7 @@ export default function AdminUsersPage() {
                 <td>
                   <select className="border rounded px-2 py-1" defaultValue={u.role} onChange={async (e)=>{
                     const role = e.target.value
-                    const res = await fetch('/api/admin/users', { method: 'PATCH', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: u.id, role }) })
+                    const res = await fetch(&apos;/api/admin/users&apos;, { method: &apos;PATCH&apos;, headers:{&apos;Content-Type&apos;:&apos;application/json&apos;}, body: JSON.stringify({ id: u.id, role }) })
                     if (res.ok) setUsers(users.map(x=> x.id===u.id? {...x, role}: x))
                   }}>
                     <option>STUDENT</option>

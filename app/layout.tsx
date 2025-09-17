@@ -1,22 +1,22 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter, Poppins } from 'next/font/google'
-import ClientLayout from './ClientLayout'
+import &apos;./globals.css&apos;
+import type { Metadata } from &apos;next&apos;
+import { Inter, Poppins } from &apos;next/font/google&apos;
+import ClientLayout from &apos;./ClientLayout&apos;
 
 const poppins = Poppins({ 
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-  variable: '--font-poppins',
+  weight: [&apos;400&apos;, &apos;500&apos;, &apos;600&apos;, &apos;700&apos;],
+  subsets: [&apos;latin&apos;],
+  variable: &apos;--font-poppins&apos;,
 })
 
 const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
+  subsets: [&apos;latin&apos;],
+  variable: &apos;--font-inter&apos;,
 })
 
 export const metadata: Metadata = {
-  title: 'MESS - Mess Management System',
-  description: 'A comprehensive mess management system',
+  title: &apos;MESS - Mess Management System&apos;,
+  description: &apos;A comprehensive mess management system&apos;,
 }
 
 export default function RootLayout({

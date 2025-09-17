@@ -1,22 +1,22 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
-import { authOptions, hasRole } from '@/lib/auth'
-import { recordAudit } from '@/lib/audit'
+import { NextResponse } from &apos;next/server&apos;
+import { prisma } from &apos;@/lib/prisma&apos;
+import { getServerSession } from &apos;next-auth&apos;
+import { authOptions, hasRole } from &apos;@/lib/auth&apos;
+import { recordAudit } from &apos;@/lib/audit&apos;
 
 export async function GET() {
-  const logs = await prisma.wasteLog.findMany({ orderBy: { date: 'desc' } })
+  const logs = await prisma.wasteLog.findMany({ orderBy: { date: &apos;desc&apos; } })
   return NextResponse.json(logs)
 }
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
-  if (!session?.user?.role || !hasRole(session.user.role, ['MANAGER', 'ADMIN'])) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  if (!session?.user?.role || !hasRole(session.user.role, [&apos;MANAGER&apos;, &apos;ADMIN&apos;])) {
+    return NextResponse.json({ error: &apos;Forbidden&apos; }, { status: 403 })
   }
   const json = await req.json()
   const created = await prisma.wasteLog.create({ data: { ...json, date: new Date(json.date) } })
-  await recordAudit(session.user.id ?? null, 'CREATE', 'WasteLog', { after: created })
+  await recordAudit(session.user.id ?? null, &apos;CREATE&apos;, &apos;WasteLog&apos;, { after: created })
   return NextResponse.json(created, { status: 201 })
 }
 

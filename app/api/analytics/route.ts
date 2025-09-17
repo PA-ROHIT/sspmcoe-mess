@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { NextResponse } from &apos;next/server&apos;
+import { prisma } from &apos;@/lib/prisma&apos;
 
 export async function GET() {
   const today = new Date(); today.setHours(0,0,0,0)
@@ -8,7 +8,7 @@ export async function GET() {
   const [bookings, attendance, waste, lowStock] = await Promise.all([
     prisma.booking.count({ where: { date: { gte: weekAgo, lt: today } } }),
     prisma.attendance.count({ where: { checkInTime: { gte: weekAgo, lt: today } } }),
-    prisma.wasteLog.findMany({ where: { date: { gte: weekAgo, lt: today } }, orderBy: { date: 'asc' } }),
+    prisma.wasteLog.findMany({ where: { date: { gte: weekAgo, lt: today } }, orderBy: { date: &apos;asc&apos; } }),
     prisma.inventoryItem.findMany({
       where: {
         AND: [
@@ -21,7 +21,7 @@ export async function GET() {
     // fallback for low stock due to prisma type quirk on sqlite; compute manually
     const all = await prisma.inventoryItem.findMany()
     const lows = all.filter(i => i.reorderThreshold > 0 && i.quantityOnHand < i.reorderThreshold)
-    const wasteData = await prisma.wasteLog.findMany({ where: { date: { gte: weekAgo, lt: today } }, orderBy: { date: 'asc' } })
+    const wasteData = await prisma.wasteLog.findMany({ where: { date: { gte: weekAgo, lt: today } }, orderBy: { date: &apos;asc&apos; } })
     return [
       await prisma.booking.count({ where: { date: { gte: weekAgo, lt: today } } }),
       await prisma.attendance.count({ where: { checkInTime: { gte: weekAgo, lt: today } } }),

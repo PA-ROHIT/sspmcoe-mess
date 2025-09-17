@@ -1,9 +1,9 @@
-'use client'
+&apos;use client&apos;
 
-import { MotionCard, MotionButton, animations } from '../components/Motion'
-import { Card, CardHeader } from '@/components/ui/Card'
-import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { MotionCard, MotionButton, animations } from &apos;../components/Motion&apos;
+import { Card, CardHeader } from &apos;@/components/ui/Card&apos;
+import { motion } from &apos;framer-motion&apos;
+import Link from &apos;next/link&apos;
 
 // Optimized animation variants
 const staggerContainer = {
@@ -36,7 +36,7 @@ export default function HomePage() {
           variants={item} 
           className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 text-gradient floating"
         >
-          Welcome to SSPM's COE Mess
+          Welcome to SSPM&apos;s COE Mess
         </motion.h1>
         
         <motion.p 
@@ -72,7 +72,7 @@ export default function HomePage() {
                     href={item.href} 
                     className="flex items-center p-6 h-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-white font-medium text-lg backdrop-blur-sm bg-gradient-to-r hover:scale-105"
                     style={{ 
-                      background: `linear-gradient(135deg, hsl(var(--${item.color.split('-')[1]}-500)), hsl(var(--${item.color.split('-')[3]}-500)))` 
+                      background: `linear-gradient(135deg, hsl(var(--${item.color.split(&apos;-&apos;)[1]}-500)), hsl(var(--${item.color.split(&apos;-&apos;)[3]}-500)))` 
                     }}
                   >
                     <span className="text-2xl mr-3">{item.icon}</span>

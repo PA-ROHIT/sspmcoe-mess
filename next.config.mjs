@@ -1,14 +1,14 @@
-/** @type {import('next').NextConfig} */
+/** @type {import(&apos;next&apos;).NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
     serverActions: {
-      bodySizeLimit: '2mb'
+      bodySizeLimit: &apos;2mb&apos;
     }
   },
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: '**' }
+      { protocol: &apos;https&apos;, hostname: &apos;**&apos; }
     ]
   }
 };

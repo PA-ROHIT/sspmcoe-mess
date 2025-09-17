@@ -1,7 +1,7 @@
 "use client"
 
-import { Component, ErrorInfo, ReactNode } from 'react'
-import { Card, CardContent, CardHeader } from '@/components/ui/Card'
+import { Component, ErrorInfo, ReactNode } from &apos;react&apos;
+import { Card, CardContent, CardHeader } from &apos;@/components/ui/Card&apos;
 
 interface Props {
   children: ReactNode
@@ -23,7 +23,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)
+    console.error(&apos;Uncaught error:&apos;, error, errorInfo)
   }
 
   public render() {
@@ -37,7 +37,7 @@ export class ErrorBoundary extends Component<Props, State> {
           <CardHeader title="Something went wrong" />
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {this.state.error?.message || 'An unexpected error occurred'}
+              {this.state.error?.message || &apos;An unexpected error occurred&apos;}
             </p>
             <button
               className="mt-4 inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"

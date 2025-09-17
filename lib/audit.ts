@@ -1,18 +1,18 @@
-import { prisma } from './prisma'
+import { prisma } from &apos;./prisma&apos;
 
 export async function recordAudit(userId: string | null, action: string, entity: string, diff: unknown) {
   try {
     await prisma.auditLog.create({
       data: {
-        userId: userId ?? 'system',
+        userId: userId ?? &apos;system&apos;,
         action,
         entity,
-        diff: typeof diff === 'string' ? diff : JSON.stringify(diff)
+        diff: typeof diff === &apos;string&apos; ? diff : JSON.stringify(diff)
       }
     })
   } catch (err) {
     // swallow audit errors to not break main flow
-    console.error('audit error', err)
+    console.error(&apos;audit error&apos;, err)
   }
 }
 

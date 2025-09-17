@@ -1,23 +1,23 @@
-'use client'
+&apos;use client&apos;
 
-import { useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { useRouter, useSearchParams } from 'next/navigation'
-import Link from 'next/link'
+import { useEffect } from &apos;react&apos;
+import { motion } from &apos;framer-motion&apos;
+import { useRouter, useSearchParams } from &apos;next/navigation&apos;
+import Link from &apos;next/link&apos;
 
 export default function BookingSuccessPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const bookingDetails = {
-    meal: searchParams.get('meal'),
-    date: searchParams.get('date'),
-    timeSlot: searchParams.get('timeSlot'),
-    portionSize: searchParams.get('portionSize')
+    meal: searchParams.get(&apos;meal&apos;),
+    date: searchParams.get(&apos;date&apos;),
+    timeSlot: searchParams.get(&apos;timeSlot&apos;),
+    portionSize: searchParams.get(&apos;portionSize&apos;)
   }
 
   useEffect(() => {
     if (!bookingDetails.meal) {
-      router.push('/booking')
+      router.push(&apos;/booking&apos;)
     }
   }, [bookingDetails.meal, router])
 
@@ -79,7 +79,7 @@ export default function BookingSuccessPage() {
             <h3 className="font-medium mb-2">Booking Details</h3>
             <div className="space-y-2 text-muted-foreground">
               <p><span className="font-medium text-foreground">Meal:</span> {bookingDetails.meal}</p>
-              <p><span className="font-medium text-foreground">Date:</span> {new Date(bookingDetails.date || '').toLocaleDateString()}</p>
+              <p><span className="font-medium text-foreground">Date:</span> {new Date(bookingDetails.date || &apos;&apos;).toLocaleDateString()}</p>
               <p><span className="font-medium text-foreground">Time Slot:</span> {bookingDetails.timeSlot}</p>
               <p><span className="font-medium text-foreground">Portion Size:</span> {bookingDetails.portionSize}</p>
             </div>

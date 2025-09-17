@@ -1,12 +1,12 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
-import { createBookingSchema } from '@/lib/validation'
-import { recordAudit } from '@/lib/audit'
+import { NextResponse } from &apos;next/server&apos;
+import { prisma } from &apos;@/lib/prisma&apos;
+import { getServerSession } from &apos;next-auth&apos;
+import { authOptions } from &apos;@/lib/auth&apos;
+import { createBookingSchema } from &apos;@/lib/validation&apos;
+import { recordAudit } from &apos;@/lib/audit&apos;
 
 export async function GET() {
-  const bookings = await prisma.booking.findMany({ orderBy: { createdAt: 'desc' } })
+  const bookings = await prisma.booking.findMany({ orderBy: { createdAt: &apos;desc&apos; } })
   return NextResponse.json(bookings)
 }
 
@@ -23,10 +23,10 @@ export async function POST(req: Request) {
       date: new Date(parsed.data.date),
       timeSlot: parsed.data.timeSlot,
       portionSize: parsed.data.portionSize,
-      status: 'booked'
+      status: &apos;booked&apos;
     }
   })
-  await recordAudit((session?.user?.id as string) ?? (json.userId as string) ?? null, 'CREATE', 'Booking', { after: created })
+  await recordAudit((session?.user?.id as string) ?? (json.userId as string) ?? null, &apos;CREATE&apos;, &apos;Booking&apos;, { after: created })
   return NextResponse.json(created, { status: 201 })
 }
 

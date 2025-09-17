@@ -1,9 +1,9 @@
 "use client"
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from &apos;react&apos;
 
 export default function AnalyticsPage() {
   const [data, setData] = useState<any>()
-  useEffect(() => { fetch('/api/analytics').then(r=>r.json()).then(setData) }, [])
+  useEffect(() => { fetch(&apos;/api/analytics&apos;).then(r=>r.json()).then(setData) }, [])
   const prep = data?.prepVsServed
   const low = data?.lowStock || []
   return (

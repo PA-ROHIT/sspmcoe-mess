@@ -1,5 +1,5 @@
 import { getServerSession } from "next-auth"
-import Link from 'next/link'
+import Link from &apos;next/link&apos;
 
 export default function SignInPage() {
   return (

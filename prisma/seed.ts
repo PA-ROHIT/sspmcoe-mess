@@ -1,47 +1,47 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from &apos;@prisma/client&apos;
 
 const prisma = new PrismaClient()
 
 async function main() {
   const admin = await prisma.user.upsert({
-    where: { collegeEmail: 'admin@college.edu' },
+    where: { collegeEmail: &apos;admin@college.edu&apos; },
     update: {},
     create: {
-      name: 'Admin',
-      collegeEmail: 'admin@college.edu',
-      role: 'ADMIN',
-      phone: '0000000000'
+      name: &apos;Admin&apos;,
+      collegeEmail: &apos;admin@college.edu&apos;,
+      role: &apos;ADMIN&apos;,
+      phone: &apos;0000000000&apos;
     }
   })
 
   const manager = await prisma.user.upsert({
-    where: { collegeEmail: 'manager@college.edu' },
+    where: { collegeEmail: &apos;manager@college.edu&apos; },
     update: {},
     create: {
-      name: 'Mess Manager',
-      collegeEmail: 'manager@college.edu',
-      role: 'MANAGER',
-      phone: '9999999999'
+      name: &apos;Mess Manager&apos;,
+      collegeEmail: &apos;manager@college.edu&apos;,
+      role: &apos;MANAGER&apos;,
+      phone: &apos;9999999999&apos;
     }
   })
 
   const student = await prisma.user.upsert({
-    where: { collegeEmail: 'student@college.edu' },
+    where: { collegeEmail: &apos;student@college.edu&apos; },
     update: {},
     create: {
-      name: 'Student One',
-      collegeEmail: 'student@college.edu',
-      role: 'STUDENT',
-      phone: '8888888888'
+      name: &apos;Student One&apos;,
+      collegeEmail: &apos;student@college.edu&apos;,
+      role: &apos;STUDENT&apos;,
+      phone: &apos;8888888888&apos;
     }
   })
 
   const mess = await prisma.mess.create({
     data: {
-      name: 'Main Mess',
-      location: 'Block A',
+      name: &apos;Main Mess&apos;,
+      location: &apos;Block A&apos;,
       managerId: manager.id,
-      openHours: '7:00-22:00'
+      openHours: &apos;7:00-22:00&apos;
     }
   })
 
@@ -54,11 +54,11 @@ async function main() {
     const vegThali = await prisma.menuItem.create({
       data: {
         messId: mess.id,
-        name: 'Veg Thali',
-        description: 'Rice, Dal, Sabzi, Roti, Salad',
-        ingredients: 'Rice, Lentils, Vegetables, Wheat Flour',
-        portionSizes: 'small,regular,large',
-        dietTags: 'veg',
+        name: &apos;Veg Thali&apos;,
+        description: &apos;Rice, Dal, Sabzi, Roti, Salad&apos;,
+        ingredients: &apos;Rice, Lentils, Vegetables, Wheat Flour&apos;,
+        portionSizes: &apos;small,regular,large&apos;,
+        dietTags: &apos;veg&apos;,
         effectiveFrom: date
       }
     })
@@ -66,11 +66,11 @@ async function main() {
     const nonVegThali = await prisma.menuItem.create({
       data: {
         messId: mess.id,
-        name: 'Non-Veg Thali',
-        description: 'Rice, Dal, Chicken Curry, Roti, Salad',
-        ingredients: 'Rice, Lentils, Chicken, Wheat Flour',
-        portionSizes: 'small,regular,large',
-        dietTags: 'non-veg',
+        name: &apos;Non-Veg Thali&apos;,
+        description: &apos;Rice, Dal, Chicken Curry, Roti, Salad&apos;,
+        ingredients: &apos;Rice, Lentils, Chicken, Wheat Flour&apos;,
+        portionSizes: &apos;small,regular,large&apos;,
+        dietTags: &apos;non-veg&apos;,
         effectiveFrom: date
       }
     })
@@ -86,9 +86,9 @@ async function main() {
       messId: mess.id,
       menuItemId: item.id,
       date: new Date(),
-      timeSlot: 'lunch',
-      portionSize: 'regular',
-      status: 'booked'
+      timeSlot: &apos;lunch&apos;,
+      portionSize: &apos;regular&apos;,
+      status: &apos;booked&apos;
     }
   })
 
